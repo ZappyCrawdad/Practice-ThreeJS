@@ -27,7 +27,7 @@ const textureLoader = new THREE.TextureLoader(); //Cargar imágenes que luego pu
 
 //*Model Loader
 const dracoLoader = new DRACOLoader(); //Cargar modelos comprimidos en formato .glb/.gltf que usen DRACO.
-dracoLoader.setDecoderPath("/draco/"); //Ubicación del decodificador.
+dracoLoader.setDecoderPath(import.meta.env.BASE_URL + 'draco/'); //Ubicación del decodificador.
 
 const loader = new GLTFLoader(); //Carga modelos .glb o .gltf
 loader.setDRACOLoader(dracoLoader); //Si el modelo esta comprimido, usa el decodificador.
@@ -35,20 +35,20 @@ loader.setDRACOLoader(dracoLoader); //Si el modelo esta comprimido, usa el decod
 //? Cambiar entre Dia y Noche.
 const textureMap = { //Objeto que almacena rutas apra cambiar el entorno.
   First: {
-    day: "/textures/room/day/first_texture_set_day.webp",
-    night: "/textures/room/night/first_texture_set_night.webp",
+    day: "textures/room/day/first_texture_set_day.webp",
+    night: "textures/room/night/first_texture_set_night.webp",
   },
   Second: {
-    day: "/textures/room/day/second_texture_set_day.webp",
-    night: "/textures/room/night/second_texture_set_night.webp",
+    day: "textures/room/day/second_texture_set_day.webp",
+    night: "textures/room/night/second_texture_set_night.webp",
   },
   Third: {
-    day: "/textures/room/day/third_texture_set_day.webp",
-    night: "/textures/room/night/third_texture_set_night.webp",
+    day: "textures/room/day/third_texture_set_day.webp",
+    night: "textures/room/night/third_texture_set_night.webp",
   },
   Fourth: {
-    day: "/textures/room/day/fourth_texture_set_day.webp",
-    night: "/textures/room/night/fourth_texture_set_night.webp",
+    day: "textures/room/day/fourth_texture_set_day.webp",
+    night: "textures/room/night/fourth_texture_set_night.webp",
   },
 };
 
@@ -58,18 +58,19 @@ const loadedTextures = { //Aquí se guardan las texturas ya cargadas, listas par
 };
 
 Object.entries(textureMap).forEach(([key, paths]) => { //Recorre el textureMap y cargas cada imagen.
-  const dayTexture = textureLoader.load(paths.day);
+  const dayTexture = textureLoader.load(import.meta.env.BASE_URL + paths.day);
+
   dayTexture.flipY = false; //Para voltear el eje Y de las texturas
   dayTexture.colorSpace = THREE.SRGBColorSpace //Para indicar a ThreeJS que la textura que estoy usando es en el espacio de color sRGB.
   loadedTextures.day[key] = dayTexture; //Cada textura se guarda en el objeto loadedTextures.
 
-  const nightTexture = textureLoader.load(paths.night);
+  const nightTexture = textureLoader.load(import.meta.env.BASE_URL + paths.night);
   nightTexture.flipY = false; //Para voltear el eje Y de las texturas
   nightTexture.colorSpace = THREE.SRGBColorSpace //(si cambia los colores)
   loadedTextures.night[key] = nightTexture;
 });
 
-loader.load("/models/Room_Portfolio.glb", (glb) => { //Se carga el modelo y se ejecuta la función (glb){...}
+loader.load(import.meta.env.BASE_URL + "models/Room_Portfolio.glb", (glb) => { //Se carga el modelo y se ejecuta la función (glb){...}
   glb.scene.traverse((child) => { //-Recorre todos los objetos dentro del modelo. -Para cada objeto (child):
     if (child.isMesh) { //Verifica si 'child' es un malla (isMesh).
 

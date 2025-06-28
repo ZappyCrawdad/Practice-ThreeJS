@@ -12,7 +12,7 @@ export function loadFBXPersonaje(scene, onLoad = () => {}) { //* 'scene': Lugar 
     const loader = new FBXLoader(); //Carga el modelo del personaje.
 
     //! Se carga el modelo base
-    loader.load('/models/character-3/astronaut-cat/source/猫猫.fbx', (fbx) => { //Se crea un"cargador" ('fbx') para traer los archivos '.fbx' desde el disco.
+        loader.load(import.meta.env.BASE_URL + "models/character-3/astronaut-cat/source/猫猫.fbx", (fbx) => { //Se crea un"cargador" ('fbx') para traer los archivos '.fbx' desde el disco.
         //Usamos el cargadr para traer el archivo del modelo al personaje (el cuerpo).
         fbx.scale.set(0.025, 0.025, 0.025); //Se hace pequeño o alto para que no sea gigante o enano.
         fbx.position.set(0, 0.5, 0); //Lo colocamos un poco más arriba para que no se entierre en el suelo.
@@ -20,11 +20,11 @@ export function loadFBXPersonaje(scene, onLoad = () => {}) { //* 'scene': Lugar 
 
          //! se definen las rutas de animaciones
         const animationPaths = { //Objeto que contiene los combres de las animaciones
-            idle:'/models/character-3/animations/Standing Idle.fbx',
-            walk: '/models/character-3/animations/Dwarf Walk.fbx',
-            back: '/models/character-3/animations/Happy Walk Backward.fbx',
-            startwalk: '/models/character-3/animations/Female Stop Walking.fbx',
-            endwalk: '/models/character-3/animations/Female Start Walking.fbx'
+            idle: import.meta.env.BASE_URL + "models/character-3/animations/Standing Idle.fbx",
+            walk: import.meta.env.BASE_URL + 'models/character-3/animations/Dwarf Walk.fbx',
+            back: import.meta.env.BASE_URL + 'models/character-3/animations/Happy Walk Backward.fbx',
+            startwalk: import.meta.env.BASE_URL + 'models/character-3/animations/Female Stop Walking.fbx',
+            endwalk: import.meta.env.BASE_URL + 'models/character-3/animations/Female Start Walking.fbx'
         };
         
         const animations = {}; //Objeto vaío donde guardamos las animaciones cargadas.
